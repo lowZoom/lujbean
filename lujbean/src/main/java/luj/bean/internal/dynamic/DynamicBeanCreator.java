@@ -2,15 +2,17 @@ package luj.bean.internal.dynamic;
 
 import java.lang.reflect.Proxy;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.function.BiConsumer;
 import luj.bean.api.BeanContext;
 
 public class DynamicBeanCreator {
 
-  public DynamicBeanCreator(Class<?> beanType,
-      BiConsumer<BeanContext.Builder, Object> beanBuilder) {
+  public DynamicBeanCreator(Class<?> beanType, BiConsumer<BeanContext.Builder, Object> beanBuilder,
+      Map<String, Object> initMap) {
     _beanType = beanType;
     _beanBuilder = beanBuilder;
+    _initMap = initMap;
   }
 
   public BeanProxyValue create() {
@@ -24,7 +26,7 @@ public class DynamicBeanCreator {
   }
 
   private BeanProxyValue createProxyValue() {
-    BeanProxyValue proxyValue = new BeanProxyValue(new HashMap<>());
+    BeanProxyValue proxyValue = new BeanProxyValue(new HashMap<>(_initMap));
 
     Object proxyInstance = Proxy.newProxyInstance(
         _beanType.getClassLoader(), new Class[]{_beanType}, proxyValue);
@@ -46,4 +48,5 @@ public class DynamicBeanCreator {
   private final Class<?> _beanType;
 
   private final BiConsumer<BeanContext.Builder, Object> _beanBuilder;
+  private final Map<String, Object> _initMap;
 }
