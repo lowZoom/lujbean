@@ -1,7 +1,9 @@
 package luj.bean.internal.dynamic;
 
+import com.google.common.collect.ImmutableList;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Map;
 
 public class BeanProxyValue implements InvocationHandler {
@@ -28,12 +30,23 @@ public class BeanProxyValue implements InvocationHandler {
     if ("toString".equals(methodName)) {
       return toString();
     }
-    return _valueMap.get(methodName);
+    Object fieldValue = _valueMap.get(methodName);
+    if (fieldValue == null) {
+      return getDefaultValue(method.getReturnType());
+    }
+    return fieldValue;
   }
 
   @Override
   public String toString() {
     return _valueMap.toString();
+  }
+
+  private Object getDefaultValue(Class<?> fieldType) {
+    if (fieldType.isAssignableFrom(List.class)) {
+      return ImmutableList.of();
+    }
+    return null;
   }
 
   private Object _instance;
