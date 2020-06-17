@@ -43,6 +43,9 @@ public class BeanProxyValue implements InvocationHandler {
   }
 
   private Object getDefaultValue(Class<?> fieldType) {
+    if (fieldType == boolean.class || fieldType == Boolean.class) {
+      return Boolean.FALSE;
+    }
     if (fieldType.isAssignableFrom(List.class)) {
       return ImmutableList.of();
     }
