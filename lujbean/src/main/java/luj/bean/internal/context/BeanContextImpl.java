@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 import luj.bean.api.BeanContext;
 import luj.bean.api.bean.Bean;
+import luj.bean.internal.bean.MutableBeanMaker;
 import luj.bean.internal.dynamic.BeanProxyValue;
 import luj.bean.internal.dynamic.DynamicBeanCreator;
 
@@ -32,5 +33,10 @@ final class BeanContextImpl implements BeanContext {
     BeanProxyValue proxyValue = new DynamicBeanCreator(beanType,
         (BiConsumer<Builder, Object>) builder, ImmutableMap.of()).create();
     return new BeanImpl<>(beanType, proxyValue);
+  }
+
+  @Override
+  public <T> Bean<T> createBean(Class<T> beanType) {
+    return new MutableBeanMaker<>(beanType).make();
   }
 }

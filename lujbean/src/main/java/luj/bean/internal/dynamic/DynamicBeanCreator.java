@@ -6,6 +6,10 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 import luj.bean.api.BeanContext;
 
+/**
+ * @see luj.bean.internal.bean.MutableBeanMaker
+ */
+@Deprecated
 public class DynamicBeanCreator {
 
   public DynamicBeanCreator(Class<?> beanType, BiConsumer<BeanContext.Builder, Object> beanBuilder,

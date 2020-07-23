@@ -1,24 +1,16 @@
-package luj.bean.internal.context;
+package luj.bean.internal.bean;
 
 import java.util.function.Function;
 import java.util.function.Supplier;
 import luj.bean.api.bean.Bean;
+import luj.bean.internal.dynamic.BeanProxySetter;
 import luj.bean.internal.dynamic.BeanProxyValue;
 
-/**
- * @see luj.bean.internal.bean.BeanImpl
- */
-@Deprecated
 final class BeanImpl<T> implements Bean<T> {
-
-  BeanImpl(Class<T> beanType, BeanProxyValue proxyValue) {
-    _beanType = beanType;
-    _proxyValue = proxyValue;
-  }
 
   @Override
   public <F> void setField(Function<T, Supplier<F>> field, F value) {
-    throw new UnsupportedOperationException("setField");
+    _proxySetter.setField(field.apply((T) _proxySetter.getInstance()), value);
   }
 
   @Override
@@ -26,9 +18,10 @@ final class BeanImpl<T> implements Bean<T> {
     return _beanType;
   }
 
+  @SuppressWarnings("unchecked")
   @Override
   public T getSetterInstance() {
-    throw new UnsupportedOperationException("getSetterInstance");
+    return (T) _proxySetter.getInstance();
   }
 
   @SuppressWarnings("unchecked")
@@ -42,7 +35,8 @@ final class BeanImpl<T> implements Bean<T> {
     return getValueInstance();
   }
 
-  private final Class<T> _beanType;
+  Class<T> _beanType;
 
-  private final BeanProxyValue _proxyValue;
+  BeanProxyValue _proxyValue;
+  BeanProxySetter _proxySetter;
 }
