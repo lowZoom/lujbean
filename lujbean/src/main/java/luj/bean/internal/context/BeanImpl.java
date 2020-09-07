@@ -1,5 +1,6 @@
 package luj.bean.internal.context;
 
+import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import luj.bean.api.bean.Bean;
@@ -19,6 +20,16 @@ final class BeanImpl<T> implements Bean<T> {
   @Override
   public <F> void setField(Function<T, Supplier<F>> field, F value) {
     throw new UnsupportedOperationException("setField");
+  }
+
+  @Override
+  public Object getField(String name) {
+    throw new UnsupportedOperationException("getField");
+  }
+
+  @Override
+  public Map<String, Object> getFieldMap() {
+    throw new UnsupportedOperationException("getFieldMap");
   }
 
   @Override

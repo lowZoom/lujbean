@@ -2,14 +2,16 @@ package luj.bean.internal.bean;
 
 import java.lang.reflect.Proxy;
 import java.util.HashMap;
+import java.util.Map;
 import luj.bean.api.bean.Bean;
 import luj.bean.internal.dynamic.BeanProxySetter;
 import luj.bean.internal.dynamic.BeanProxyValue;
 
 public class MutableBeanMaker<T> {
 
-  public MutableBeanMaker(Class<T> beanType) {
+  public MutableBeanMaker(Class<T> beanType, Map<String, Object> initMap) {
     _beanType = beanType;
+    _initMap = initMap;
   }
 
   public Bean<T> make() {
@@ -24,7 +26,7 @@ public class MutableBeanMaker<T> {
   }
 
   private BeanProxyValue createProxyValue() {
-    BeanProxyValue proxyValue = new BeanProxyValue(new HashMap<>());
+    BeanProxyValue proxyValue = new BeanProxyValue(_beanType, new HashMap<>(_initMap));
 
     Object proxyInstance = Proxy.newProxyInstance(
         _beanType.getClassLoader(), new Class[]{_beanType}, proxyValue);
@@ -44,4 +46,6 @@ public class MutableBeanMaker<T> {
   }
 
   private final Class<T> _beanType;
+
+  private final Map<String, Object> _initMap;
 }

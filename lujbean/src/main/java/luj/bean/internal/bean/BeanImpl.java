@@ -1,5 +1,6 @@
 package luj.bean.internal.bean;
 
+import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import luj.bean.api.bean.Bean;
@@ -8,9 +9,20 @@ import luj.bean.internal.dynamic.BeanProxyValue;
 
 final class BeanImpl<T> implements Bean<T> {
 
+  @SuppressWarnings("unchecked")
   @Override
   public <F> void setField(Function<T, Supplier<F>> field, F value) {
     _proxySetter.setField(field.apply((T) _proxySetter.getInstance()), value);
+  }
+
+  @Override
+  public Object getField(String name) {
+    return _proxyValue.getField(name);
+  }
+
+  @Override
+  public Map<String, Object> getFieldMap() {
+    return _proxyValue.getValueMap();
   }
 
   @Override

@@ -22,4 +22,8 @@ public interface BeanContext {
   <T> Bean<T> createBean(Class<T> beanType, BiConsumer<Builder, T> builder);
 
   <T> Bean<T> createBean(Class<T> beanType);
+
+  <T> Bean<T> createBean(Class<T> beanType, Map<String, Object> initValue);
+
+  <T> Bean<T> getBean(T valueInstance);
 }

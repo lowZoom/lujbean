@@ -8,12 +8,17 @@ import java.util.Map;
 
 public class BeanProxyValue implements InvocationHandler {
 
-  public BeanProxyValue(Map<String, Object> valueMap) {
+  public BeanProxyValue(Class<?> beanType, Map<String, Object> valueMap) {
+    _beanType = beanType;
     _valueMap = valueMap;
   }
 
   public void setField(String name, Object value) {
     _valueMap.put(name, value);
+  }
+
+  public Object getField(String name) {
+    return _valueMap.get(name);
   }
 
   public Object getInstance() {
@@ -22,6 +27,14 @@ public class BeanProxyValue implements InvocationHandler {
 
   public void setInstance(Object instance) {
     _instance = instance;
+  }
+
+  public Class<?> getBeanType() {
+    return _beanType;
+  }
+
+  public Map<String, Object> getValueMap() {
+    return _valueMap;
   }
 
   @Override
@@ -54,5 +67,6 @@ public class BeanProxyValue implements InvocationHandler {
 
   private Object _instance;
 
+  private final Class<?> _beanType;
   private final Map<String, Object> _valueMap;
 }
