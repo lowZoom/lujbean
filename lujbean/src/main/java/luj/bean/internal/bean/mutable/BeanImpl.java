@@ -1,4 +1,4 @@
-package luj.bean.internal.bean;
+package luj.bean.internal.bean.mutable;
 
 import java.util.Map;
 import java.util.function.Function;

@@ -7,7 +7,7 @@ import java.util.function.BiConsumer;
 import luj.bean.api.BeanContext;
 
 /**
- * @see luj.bean.internal.bean.MutableBeanMaker
+ * @see luj.bean.internal.bean.mutable.MutableBeanMaker
  */
 @Deprecated
 public class DynamicBeanCreator {

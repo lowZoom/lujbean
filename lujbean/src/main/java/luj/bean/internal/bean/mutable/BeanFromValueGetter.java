@@ -1,4 +1,4 @@
-package luj.bean.internal.bean;
+package luj.bean.internal.bean.mutable;
 
 import java.lang.reflect.Proxy;
 import luj.bean.api.bean.Bean;
