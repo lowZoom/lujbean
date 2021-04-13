@@ -16,6 +16,11 @@ final class BeanImpl<T> implements Bean<T> {
   }
 
   @Override
+  public <F> void setField(Supplier<F> field, F value) {
+    _proxySetter.setField(field, value);
+  }
+
+  @Override
   public Object getField(String name) {
     return _proxyValue.getField(name);
   }

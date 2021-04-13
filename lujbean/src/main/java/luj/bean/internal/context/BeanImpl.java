@@ -7,7 +7,7 @@ import luj.bean.api.bean.Bean;
 import luj.bean.internal.dynamic.BeanProxyValue;
 
 /**
- * @see luj.bean.internal.bean.BeanImpl
+ * @see luj.bean.internal.bean.mutable.BeanImpl
  */
 @Deprecated
 final class BeanImpl<T> implements Bean<T> {
@@ -19,6 +19,11 @@ final class BeanImpl<T> implements Bean<T> {
 
   @Override
   public <F> void setField(Function<T, Supplier<F>> field, F value) {
+    throw new UnsupportedOperationException("setField");
+  }
+
+  @Override
+  public <F> void setField(Supplier<F> field, F value) {
     throw new UnsupportedOperationException("setField");
   }
 

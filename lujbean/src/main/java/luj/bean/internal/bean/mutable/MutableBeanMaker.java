@@ -28,6 +28,7 @@ public class MutableBeanMaker<T> {
   private BeanProxyValue createProxyValue() {
     BeanProxyValue proxyValue = new BeanProxyValue(_beanType, new HashMap<>(_initMap));
 
+    //TODO: 优化性能 Proxy.getProxyClass(...).getConstructor(InvocationHandler)
     Object proxyInstance = Proxy.newProxyInstance(
         _beanType.getClassLoader(), new Class[]{_beanType}, proxyValue);
 

@@ -8,6 +8,8 @@ public interface Bean<T> {
 
   <F> void setField(Function<T, Supplier<F>> field, F value);
 
+  <F> void setField(Supplier<F> field, F value);
+
   Object getField(String name);
 
   Map<String, Object> getFieldMap();
