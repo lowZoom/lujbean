@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 import luj.bean.api.bean.Bean;
+import luj.bean.api.bean.ImmutableBean;
 
 public interface BeanContext {
 
@@ -24,6 +25,8 @@ public interface BeanContext {
   <T> Bean<T> createBean(Class<T> beanType);
 
   <T> Bean<T> createBean(Class<T> beanType, Map<String, Object> initValue);
+
+  <T> ImmutableBean<T> createImmutable(Class<T> beanType, Map<String, Object> initValue);
 
   <T> Bean<T> getBean(T valueInstance);
 }

@@ -5,6 +5,8 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 import luj.bean.api.BeanContext;
 import luj.bean.api.bean.Bean;
+import luj.bean.api.bean.ImmutableBean;
+import luj.bean.internal.bean.immutable.ImmutableBeanMaker;
 import luj.bean.internal.bean.mutable.BeanFromValueGetter;
 import luj.bean.internal.bean.mutable.MutableBeanMaker;
 import luj.bean.internal.dynamic.BeanProxyValue;
@@ -44,6 +46,11 @@ final class BeanContextImpl implements BeanContext {
   @Override
   public <T> Bean<T> createBean(Class<T> beanType) {
     return createBean(beanType, ImmutableMap.of());
+  }
+
+  @Override
+  public <T> ImmutableBean<T> createImmutable(Class<T> beanType, Map<String, Object> initValue) {
+    return new ImmutableBeanMaker<>(beanType, initValue).make();
   }
 
   @Override
