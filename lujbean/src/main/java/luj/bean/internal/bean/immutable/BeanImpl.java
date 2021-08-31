@@ -27,6 +27,15 @@ final class BeanImpl<T> implements ImmutableBean<T> {
     return (T) _proxyValue.getInstance();
   }
 
+  @SuppressWarnings("unchecked")
+  @Override
+  public <T2> ImmutableBean<T2> as(Class<T2> newType) {
+    if (newType == _beanType) {
+      return (ImmutableBean<T2>) this;
+    }
+    return ImmutableBeanMaker.GET.make(newType, _proxyValue.getValueMap());
+  }
+
   Class<T> _beanType;
 
   BeanProxyValue _proxyValue;

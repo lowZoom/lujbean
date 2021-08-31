@@ -6,33 +6,25 @@ import java.util.Map;
 import luj.bean.api.bean.ImmutableBean;
 import luj.bean.internal.dynamic.BeanProxyValue;
 
-public class ImmutableBeanMaker<T> {
+public enum ImmutableBeanMaker {
+  GET;
 
-  public ImmutableBeanMaker(Class<T> beanType, Map<String, Object> valueMap) {
-    _beanType = beanType;
-    _valueMap = valueMap;
-  }
-
-  public ImmutableBean<T> make() {
+  public <T> ImmutableBean<T> make(Class<T> beanType, Map<String, Object> valueMap) {
     BeanImpl<T> bean = new BeanImpl<>();
 
-    bean._beanType = _beanType;
-    bean._proxyValue = createProxyValue();
+    bean._beanType = beanType;
+    bean._proxyValue = createProxyValue(beanType, valueMap);
 
     return bean;
   }
 
-  private BeanProxyValue createProxyValue() {
-    BeanProxyValue proxyValue = new BeanProxyValue(_beanType, ImmutableMap.copyOf(_valueMap));
+  private BeanProxyValue createProxyValue(Class<?> beanType, Map<String, Object> valueMap) {
+    BeanProxyValue proxyValue = new BeanProxyValue(beanType, ImmutableMap.copyOf(valueMap));
 
     Object proxyInstance = Proxy.newProxyInstance(
-        _beanType.getClassLoader(), new Class[]{_beanType}, proxyValue);
+        beanType.getClassLoader(), new Class[]{beanType}, proxyValue);
 
     proxyValue.setInstance(proxyInstance);
     return proxyValue;
   }
-
-  private final Class<T> _beanType;
-
-  private final Map<String, Object> _valueMap;
 }

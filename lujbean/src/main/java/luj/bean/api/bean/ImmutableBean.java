@@ -11,4 +11,6 @@ public interface ImmutableBean<T> {
   Class<T> getBeanType();
 
   T getValueInstance();
+
+  <T2> ImmutableBean<T2> as(Class<T2> newType);
 }
