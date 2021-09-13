@@ -1,5 +1,6 @@
 package luj.bean.internal.dynamic;
 
+import com.google.common.base.Defaults;
 import com.google.common.collect.ImmutableList;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -56,13 +57,10 @@ public class BeanProxyValue implements InvocationHandler {
   }
 
   private Object getDefaultValue(Class<?> fieldType) {
-    if (fieldType == boolean.class || fieldType == Boolean.class) {
-      return Boolean.FALSE;
-    }
     if (fieldType.isAssignableFrom(List.class)) {
       return ImmutableList.of();
     }
-    return null;
+    return Defaults.defaultValue(fieldType);
   }
 
   private Object _instance;
