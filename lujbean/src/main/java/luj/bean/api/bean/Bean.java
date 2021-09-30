@@ -10,6 +10,8 @@ public interface Bean<T> {
 
   <F> void setField(Supplier<F> field, F value);
 
+  void setField(String name, Object value);
+
   Object getField(String name);
 
   Map<String, Object> getFieldMap();

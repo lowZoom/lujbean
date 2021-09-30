@@ -28,6 +28,11 @@ final class BeanImpl<T> implements Bean<T> {
   }
 
   @Override
+  public void setField(String name, Object value) {
+    throw new UnsupportedOperationException("setField");
+  }
+
+  @Override
   public Object getField(String name) {
     throw new UnsupportedOperationException("getField");
   }
