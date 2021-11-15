@@ -9,7 +9,7 @@ import luj.bean.internal.dynamic.BeanProxyValue;
 public enum ImmutableBeanMaker {
   GET;
 
-  public <T> ImmutableBean<T> make(Class<T> beanType, Map<String, Object> valueMap) {
+  public <T> ImmutableBean<T> make(Class<T> beanType, Map<String, ?> valueMap) {
     BeanImpl<T> bean = new BeanImpl<>();
 
     bean._beanType = beanType;
@@ -18,7 +18,7 @@ public enum ImmutableBeanMaker {
     return bean;
   }
 
-  private BeanProxyValue createProxyValue(Class<?> beanType, Map<String, Object> valueMap) {
+  private BeanProxyValue createProxyValue(Class<?> beanType, Map<String, ?> valueMap) {
     BeanProxyValue proxyValue = new BeanProxyValue(beanType, ImmutableMap.copyOf(valueMap));
 
     Object proxyInstance = Proxy.newProxyInstance(

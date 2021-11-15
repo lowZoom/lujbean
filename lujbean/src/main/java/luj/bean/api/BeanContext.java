@@ -26,7 +26,7 @@ public interface BeanContext {
 
   <T> Bean<T> createBean(Class<T> beanType, Map<String, Object> initValue);
 
-  <T> ImmutableBean<T> createImmutable(Class<T> beanType, Map<String, Object> initValue);
+  <T> ImmutableBean<T> createImmutable(Class<T> beanType, Map<String, ?> initValue);
 
   <T> Bean<T> getBean(T valueInstance);
 }

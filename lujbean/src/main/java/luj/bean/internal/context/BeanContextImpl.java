@@ -49,7 +49,7 @@ final class BeanContextImpl implements BeanContext {
   }
 
   @Override
-  public <T> ImmutableBean<T> createImmutable(Class<T> beanType, Map<String, Object> initValue) {
+  public <T> ImmutableBean<T> createImmutable(Class<T> beanType, Map<String, ?> initValue) {
     return ImmutableBeanMaker.GET.make(beanType, initValue);
   }
 
