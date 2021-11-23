@@ -16,6 +16,9 @@ public interface BeanContext {
   @Deprecated
   <T> T create(Class<T> beanType, BiConsumer<Builder, T> builder);
 
+  /**
+   * @see #createBean(Class, Map)
+   */
   @Deprecated
   <T> T create(Class<T> beanType, Map<String, Object> initValue);
 
