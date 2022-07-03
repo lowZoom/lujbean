@@ -1,10 +1,13 @@
 package luj.bean.api;
 
+import luj.bean.api.bean.Bean;
+import luj.bean.api.bean.BeanLike;
+import luj.bean.api.bean.CustomBean;
+import luj.bean.api.bean.ImmutableBean;
+
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
-import luj.bean.api.bean.Bean;
-import luj.bean.api.bean.ImmutableBean;
 
 public interface BeanContext {
 
@@ -31,5 +34,13 @@ public interface BeanContext {
 
   <T> ImmutableBean<T> createImmutable(Class<T> beanType, Map<String, ?> initValue);
 
+  <T> CustomBean<T> createCustom(Class<T> beanType, CustomBean.Custom custom);
+
+  /**
+   * @see #getBeanFrom
+   */
+  @Deprecated
   <T> Bean<T> getBean(T valueInstance);
+
+  <T> BeanLike<T> getBeanFrom(T valueInstance);
 }

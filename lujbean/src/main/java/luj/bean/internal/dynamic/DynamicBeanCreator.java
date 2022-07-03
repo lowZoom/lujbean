@@ -1,10 +1,11 @@
 package luj.bean.internal.dynamic;
 
+import luj.bean.api.BeanContext;
+
 import java.lang.reflect.Proxy;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
-import luj.bean.api.BeanContext;
 
 /**
  * @see luj.bean.internal.bean.mutable.MutableBeanMaker
@@ -30,7 +31,7 @@ public class DynamicBeanCreator {
   }
 
   private BeanProxyValue createProxyValue() {
-    BeanProxyValue proxyValue = new BeanProxyValue(_beanType, new HashMap<>(_initMap));
+    BeanProxyValue proxyValue = BeanProxyValue.create(_beanType, new HashMap<>(_initMap));
 
     Object proxyInstance = Proxy.newProxyInstance(
         _beanType.getClassLoader(), new Class[]{_beanType}, proxyValue);
