@@ -63,7 +63,7 @@ final class BeanContextImpl implements BeanContext {
 
   @Override
   public <T> Bean<T> getBean(T valueInstance) {
-    return new BeanFromValueGetter<T>(valueInstance).getBean();
+    return getBeanFrom(valueInstance).asMutable();
   }
 
   @Override

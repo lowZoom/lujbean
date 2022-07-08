@@ -38,6 +38,7 @@ public interface BeanContext {
 
   /**
    * @see #getBeanFrom
+   * @see BeanLike#asMutable
    */
   @Deprecated
   <T> Bean<T> getBean(T valueInstance);

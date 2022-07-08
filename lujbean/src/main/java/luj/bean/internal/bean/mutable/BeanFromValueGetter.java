@@ -4,15 +4,12 @@ import java.lang.reflect.Proxy;
 import luj.bean.api.bean.Bean;
 import luj.bean.internal.dynamic.BeanProxyValue;
 
-public class BeanFromValueGetter<T> {
-
-  public BeanFromValueGetter(Object valueInstance) {
-    _valueInstance = valueInstance;
-  }
+public enum BeanFromValueGetter {
+  GET;
 
   @SuppressWarnings("unchecked")
-  public Bean<T> getBean() {
-    BeanProxyValue proxy = (BeanProxyValue) Proxy.getInvocationHandler(_valueInstance);
+  public <T> Bean<T> getBean(Object valueInstance) {
+    BeanProxyValue proxy = (BeanProxyValue) Proxy.getInvocationHandler(valueInstance);
 
     BeanImpl<T> bean = new BeanImpl<>();
     bean._beanType = (Class<T>) proxy.getBeanType();
@@ -20,6 +17,4 @@ public class BeanFromValueGetter<T> {
 
     return bean;
   }
-
-  private final Object _valueInstance;
 }
