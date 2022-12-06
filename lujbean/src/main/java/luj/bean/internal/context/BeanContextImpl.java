@@ -1,6 +1,8 @@
 package luj.bean.internal.context;
 
 import com.google.common.collect.ImmutableMap;
+import java.util.Map;
+import java.util.function.BiConsumer;
 import luj.bean.api.BeanContext;
 import luj.bean.api.bean.Bean;
 import luj.bean.api.bean.BeanLike;
@@ -8,14 +10,10 @@ import luj.bean.api.bean.CustomBean;
 import luj.bean.api.bean.ImmutableBean;
 import luj.bean.internal.bean.custom.CustomBeanMaker;
 import luj.bean.internal.bean.immutable.ImmutableBeanMaker;
-import luj.bean.internal.bean.mutable.BeanFromValueGetter;
 import luj.bean.internal.bean.mutable.MutableBeanMaker;
 import luj.bean.internal.beanfrom.BeanFromValueGetterV2;
 import luj.bean.internal.dynamic.BeanProxyValue;
 import luj.bean.internal.dynamic.DynamicBeanCreator;
-
-import java.util.Map;
-import java.util.function.BiConsumer;
 
 final class BeanContextImpl implements BeanContext {
 
@@ -24,13 +22,6 @@ final class BeanContextImpl implements BeanContext {
   public <T> T create(Class<T> beanType, BiConsumer<Builder, T> builder) {
     BeanProxyValue proxyValue = new DynamicBeanCreator(beanType,
         (BiConsumer<Builder, Object>) builder, ImmutableMap.of()).create();
-    return (T) proxyValue.getInstance();
-  }
-
-  @Override
-  public <T> T create(Class<T> beanType, Map<String, Object> initValue) {
-    BeanProxyValue proxyValue = new DynamicBeanCreator(beanType, (b, o) -> {
-    }, initValue).create();
     return (T) proxyValue.getInstance();
   }
 
@@ -59,11 +50,6 @@ final class BeanContextImpl implements BeanContext {
   @Override
   public <T> CustomBean<T> createCustom(Class<T> beanType, CustomBean.Custom custom) {
     return CustomBeanMaker.GET.make(beanType, custom);
-  }
-
-  @Override
-  public <T> Bean<T> getBean(T valueInstance) {
-    return getBeanFrom(valueInstance).asMutable();
   }
 
   @Override

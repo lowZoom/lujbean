@@ -21,10 +21,4 @@ public interface Bean<T> {
   T getSetterInstance();
 
   T getValueInstance();
-
-  /**
-   * @see #getValueInstance
-   */
-  @Deprecated
-  T getInstance();
 }

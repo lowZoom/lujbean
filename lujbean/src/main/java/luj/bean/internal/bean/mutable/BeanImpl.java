@@ -52,11 +52,6 @@ final class BeanImpl<T> implements Bean<T> {
     return (T) _proxyValue.getInstance();
   }
 
-  @Override
-  public T getInstance() {
-    return getValueInstance();
-  }
-
   Class<T> _beanType;
 
   BeanProxyValue _proxyValue;
